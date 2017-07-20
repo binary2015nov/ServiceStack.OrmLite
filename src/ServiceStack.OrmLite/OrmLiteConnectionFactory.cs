@@ -33,8 +33,6 @@ namespace ServiceStack.OrmLite
             }
 
             this.ConnectionFilter = x => x;
-
-            JsConfig.InitStatics();
         }
 
         public IOrmLiteDialectProvider DialectProvider { get; set; }

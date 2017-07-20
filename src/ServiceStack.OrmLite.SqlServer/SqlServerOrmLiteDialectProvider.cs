@@ -174,7 +174,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 }
             }
 
-            return StringBuilderCache.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         public override string ToAddColumnStatement(Type modelType, FieldDefinition fieldDef)
@@ -242,7 +242,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 sql.AppendFormat(DefaultValueFormat, defaultValue);
             }
 
-            return StringBuilderCache.ReturnAndFree(sql);
+            return StringBuilderCache.Retrieve(sql);
         }
 
         public override string ToSelectStatement(ModelDefinition modelDef,
@@ -257,7 +257,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 .Append(bodyExpression);
 
             if (!offset.HasValue && !rows.HasValue)
-                return StringBuilderCache.ReturnAndFree(sb) + orderByExpression;
+                return StringBuilderCache.Retrieve(sb) + orderByExpression;
 
             if (offset.HasValue && offset.Value < 0)
                 throw new ArgumentException($"Skip value:'{offset.Value}' must be>=0");
@@ -273,7 +273,7 @@ namespace ServiceStack.OrmLite.SqlServer
             //Temporary hack till we come up with a more robust paging sln for SqlServer
             if (skip == 0)
             {
-                var sql = StringBuilderCache.ReturnAndFree(sb) + orderByExpression;
+                var sql = StringBuilderCache.Retrieve(sb) + orderByExpression;
 
                 if (take == int.MaxValue)
                     return sql;
@@ -334,7 +334,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 }
             }
 
-            var sqlSelect = selectToken[0] + " " + StringBuilderCache.ReturnAndFree(sb).Trim();
+            var sqlSelect = selectToken[0] + " " + StringBuilderCache.Retrieve(sb).Trim();
             return sqlSelect;
         }
 

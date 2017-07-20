@@ -73,7 +73,7 @@ namespace ServiceStack.OrmLite
                 }
             }
 
-            log.Debug(StringBuilderCache.ReturnAndFree(sb));
+            log.Debug(StringBuilderCache.Retrieve(sb));
         }
 
         public static T CreateInstance<T>()
@@ -377,7 +377,7 @@ namespace ServiceStack.OrmLite
                 sb.Append(item);
             }
 
-            return StringBuilderCache.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         internal static string SetIdsInSqlParams(this IDbCommand dbCmd, IEnumerable idValues)
@@ -391,7 +391,7 @@ namespace ServiceStack.OrmLite
 
                 sbParams.Append(dbCmd.AddParam(dbCmd.Parameters.Count.ToString(), item).ParameterName);
             }
-            var sqlIn = StringBuilderCache.ReturnAndFree(sbParams);
+            var sqlIn = StringBuilderCache.Retrieve(sbParams);
             return sqlIn;
         }
 
@@ -527,7 +527,7 @@ namespace ServiceStack.OrmLite
                     sb.Append(c);
             }
 
-            return StringBuilderCache.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         public static string SqlJoin<T>(this List<T> values, IOrmLiteDialectProvider dialect = null)
@@ -541,7 +541,7 @@ namespace ServiceStack.OrmLite
                 sb.Append(dialect.GetQuotedValue(value, value.GetType()));
             }
 
-            return StringBuilderCache.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         public static string SqlJoin(IEnumerable values, IOrmLiteDialectProvider dialect = null)
@@ -555,7 +555,7 @@ namespace ServiceStack.OrmLite
                 sb.Append(dialect.GetQuotedValue(value, value.GetType()));
             }
 
-            return StringBuilderCache.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         public static SqlInValues SqlInValues<T>(this T[] values, IOrmLiteDialectProvider dialect = null)
@@ -577,7 +577,7 @@ namespace ServiceStack.OrmLite
                 sb.Append(paramName);
             }
 
-            return StringBuilderCache.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         public static Tuple<FieldDefinition, int, IOrmLiteConverter>[] GetIndexFieldsCache(this IDataReader reader, 
@@ -805,7 +805,7 @@ namespace ServiceStack.OrmLite
                 }
             }
 
-            return StringBuilderCache.ReturnAndFree(sb).Trim();
+            return StringBuilderCache.Retrieve(sb).Trim();
         }
 
         public static char[] QuotedChars = new[] { '"', '`', '[', ']' };

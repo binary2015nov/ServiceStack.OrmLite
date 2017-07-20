@@ -34,7 +34,7 @@ namespace ServiceStack.OrmLite
             }
             sb.AppendLine();
 
-            return StringBuilderCache.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         /// <summary>

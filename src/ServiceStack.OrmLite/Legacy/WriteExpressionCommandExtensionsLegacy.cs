@@ -47,7 +47,7 @@ namespace ServiceStack.OrmLite.Legacy
                 sql.Append(" WHERE ");
                 sql.Append(@where.SqlVerifyFragment());
             }
-            return StringBuilderCache.ReturnAndFree(sql);
+            return StringBuilderCache.Retrieve(sql);
         }
 
         internal static int DeleteFmt<T>(this IDbCommand dbCmd, string sqlFilter, params object[] filterParams)
@@ -82,7 +82,7 @@ namespace ServiceStack.OrmLite.Legacy
             sql.AppendFormat("DELETE FROM {0} WHERE {1}",
                              dialectProvider.GetQuotedTableName(table),
                              @where.SqlVerifyFragment());
-            return StringBuilderCache.ReturnAndFree(sql);
+            return StringBuilderCache.Retrieve(sql);
         }
 
         [Obsolete("Use db.Delete(db.From<T>())")]

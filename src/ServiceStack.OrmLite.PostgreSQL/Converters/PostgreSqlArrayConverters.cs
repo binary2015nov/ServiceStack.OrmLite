@@ -94,7 +94,7 @@ namespace ServiceStack.OrmLite.PostgreSQL.Converters
                         .Append((char)('0' + (7 & (b >> 6))))
                         .Append((char)('0' + (7 & (b >> 3))))
                         .Append((char)('0' + (7 & b)));
-            return StringBuilderCache.ReturnAndFree(res);
+            return StringBuilderCache.Retrieve(res);
         }
 
         public static string ToArray<T>(this IOrmLiteConverter converter, T[] source)
@@ -105,7 +105,7 @@ namespace ServiceStack.OrmLite.PostgreSQL.Converters
                 if (values.Length > 0) values.Append(",");
                 values.Append(converter.DialectProvider.GetQuotedValue(value, typeof(T)));
             }
-            return "{" + StringBuilderCache.ReturnAndFree(values) + "}";
+            return "{" + StringBuilderCache.Retrieve(values) + "}";
         }
     }
 }

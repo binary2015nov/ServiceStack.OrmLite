@@ -118,7 +118,7 @@ namespace ServiceStack.OrmLite.VistaDB
             var quotedTableName = this.GetQuotedTableName(modelDefinition);
 
             var columns = StringBuilderCache.Allocate();
-            var constraints = StringBuilderCacheAlt.Allocate();
+            var constraints = StringBuilderCache.Allocate();
 
             foreach (var fieldDef in modelDefinition.FieldDefinitions)
             {
@@ -152,8 +152,8 @@ namespace ServiceStack.OrmLite.VistaDB
 
             return string.Format("CREATE TABLE {0} \n(\n  {1} \n); \n {2}\n",
                 quotedTableName,
-                StringBuilderCache.ReturnAndFree(columns),
-                StringBuilderCacheAlt.ReturnAndFree(constraints));
+                StringBuilderCache.Retrieve(columns),
+                StringBuilderCache.Retrieve(constraints));
         }
 
         public override string GetColumnDefinition(FieldDefinition fieldDef)
@@ -182,7 +182,7 @@ namespace ServiceStack.OrmLite.VistaDB
             if (!string.IsNullOrEmpty(defaultValue))
                 sql.AppendFormat(this.DefaultValueFormat, defaultValue);
 
-            return StringBuilderCache.ReturnAndFree(sql);
+            return StringBuilderCache.Retrieve(sql);
         }
 
         public override string ToExistStatement(Type fromTableType, object objWithProperties, string sqlFilter, params object[] filterParams)
@@ -192,7 +192,7 @@ namespace ServiceStack.OrmLite.VistaDB
             var sql = StringBuilderCache.Allocate();
             sql.AppendFormat("SELECT 1 \nFROM {0}", this.GetQuotedTableName(fromModelDef));
 
-            var filter = StringBuilderCacheAlt.Allocate();
+            var filter = StringBuilderCache.Allocate();
             var hasFilter = false;
 
             if (objWithProperties != null)
@@ -244,7 +244,7 @@ namespace ServiceStack.OrmLite.VistaDB
 
                 hasFilter = filter.Length > 0;
                 if (hasFilter)
-                    sql.AppendFormat("\nWHERE {0} ", StringBuilderCacheAlt.ReturnAndFree(filter));
+                    sql.AppendFormat("\nWHERE {0} ", StringBuilderCache.Retrieve(filter));
             }
 
             if (!string.IsNullOrEmpty(sqlFilter))
@@ -254,7 +254,7 @@ namespace ServiceStack.OrmLite.VistaDB
                 sql.Append(sqlFilter);
             }
 
-            return string.Format("SELECT EXISTS({0});", StringBuilderCache.ReturnAndFree(sql));
+            return string.Format("SELECT EXISTS({0});", StringBuilderCache.Retrieve(sql));
         }
 
         public override string GetQuotedValue(object value, Type fieldType)
@@ -348,7 +348,7 @@ namespace ServiceStack.OrmLite.VistaDB
                 }
             }
 
-            return StringBuilderCache.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         public override string ToAddColumnStatement(Type modelType, FieldDefinition fieldDef)
@@ -401,7 +401,7 @@ namespace ServiceStack.OrmLite.VistaDB
                 sb.Append(this.GetPagingFetchExpression(rows.Value));
             }
 
-            return StringBuilderCache.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         protected virtual string GetPagingOffsetExpression(int rows)

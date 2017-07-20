@@ -38,7 +38,7 @@ namespace ServiceStack.OrmLite.VistaDB
                     .Append(param.ParameterName);
             }
 
-            var strFields = StringBuilderCache.ReturnAndFree(setFields);
+            var strFields = StringBuilderCache.Retrieve(setFields);
             if (strFields.Length == 0)
                 throw new ArgumentException("No non-null or non-default values were provided for type: " + typeof(T).Name);
 

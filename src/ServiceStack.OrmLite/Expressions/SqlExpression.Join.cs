@@ -341,7 +341,7 @@ namespace ServiceStack.OrmLite
                 }
             }
 
-            var select = StringBuilderCache.ReturnAndFree(sbSelect);
+            var select = StringBuilderCache.Retrieve(sbSelect);
 
             var columns = select.Length > 0 ? select : "*";
             SelectExpression = "SELECT " + (selectDistinct ? "DISTINCT " : "") + columns;

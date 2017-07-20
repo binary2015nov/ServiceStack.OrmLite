@@ -538,9 +538,9 @@ namespace ServiceStack.OrmLite
                     dbColumns.AppendFormat("\"{0}{1}\".*", baseSchema, dialectProvider.GetQuotedTableName(baseTableName));
             }
 
-            sbSelect.Append(StringBuilderCache.ReturnAndFree(dbColumns) + " \n");
+            sbSelect.Append(StringBuilderCache.Retrieve(dbColumns) + " \n");
 
-            var sbBody = StringBuilderCacheAlt.Allocate();
+            var sbBody = StringBuilderCache.Allocate();
             sbBody.AppendFormat("FROM {0}{1} \n", baseSchema, dialectProvider.GetQuotedTableName(baseTableName));
             int i = 0;
             foreach (var join in joinList)
@@ -599,7 +599,7 @@ namespace ServiceStack.OrmLite
             }
 
             var sql = dialectProvider.ToSelectStatement(
-                modelDef, StringBuilderCache.ReturnAndFree(sbSelect), StringBuilderCacheAlt.ReturnAndFree(sbBody), sbOrderBy.ToString(), Offset, Rows);
+                modelDef, StringBuilderCache.Retrieve(sbSelect), StringBuilderCache.Retrieve(sbBody), sbOrderBy.ToString(), Offset, Rows);
 
             return sql; 
         }

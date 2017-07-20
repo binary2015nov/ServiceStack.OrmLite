@@ -89,7 +89,7 @@ namespace ServiceStack.OrmLite.Sqlite
             }
 
             var tableName = objectWithProperties.GetType().Name;
-            var sql = $"CREATE VIRTUAL TABLE \"{tableName}\" USING FTS3 ({StringBuilderCache.ReturnAndFree(sbColumns)});";
+            var sql = $"CREATE VIRTUAL TABLE \"{tableName}\" USING FTS3 ({StringBuilderCache.Retrieve(sbColumns)});";
 
             return sql;
         }
@@ -135,7 +135,7 @@ namespace ServiceStack.OrmLite.Sqlite
                 }
             }
 
-            return CreateConnection(StringBuilderCache.ReturnAndFree(connString));
+            return CreateConnection(StringBuilderCache.Retrieve(connString));
         }
 
         protected abstract IDbConnection CreateConnection(string connectionString);

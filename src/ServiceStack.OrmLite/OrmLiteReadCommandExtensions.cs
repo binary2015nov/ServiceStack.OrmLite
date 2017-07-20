@@ -283,7 +283,7 @@ namespace ServiceStack.OrmLite
                 sb.Append(dialectProvider.GetParam(p.ParameterName));
             }
 
-            return dialectProvider.ToSelectStatement(typeof(T), StringBuilderCache.ReturnAndFree(sb));
+            return dialectProvider.ToSelectStatement(typeof(T), StringBuilderCache.Retrieve(sb));
         }
 
         internal static bool CanReuseParam<T>(this IDbCommand dbCmd, string paramName)
@@ -409,11 +409,11 @@ namespace ServiceStack.OrmLite
                 $"FROM {dialectProvider.GetQuotedTableName(fromTableType.GetModelDefinition())}");
 
             if (string.IsNullOrEmpty(sqlFilter))
-                return StringBuilderCache.ReturnAndFree(sql);
+                return StringBuilderCache.Retrieve(sql);
 
             sql.Append(" WHERE ");
             sql.Append(sqlFilter);
-            return StringBuilderCache.ReturnAndFree(sql);
+            return StringBuilderCache.Retrieve(sql);
         }
 
         internal static List<T> SqlList<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)

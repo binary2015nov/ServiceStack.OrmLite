@@ -112,7 +112,7 @@ namespace ServiceStack.OrmLite.PostgreSQL
                 sql.AppendFormat(DefaultValueFormat, defaultValue);
             }
 
-            var definition = StringBuilderCache.ReturnAndFree(sql);
+            var definition = StringBuilderCache.Retrieve(sql);
             return definition;
         }
 
@@ -207,7 +207,7 @@ namespace ServiceStack.OrmLite.PostgreSQL
                 sbColumnValues.Append(fieldDef.GetQuotedValue(objWithProperties));
             }
 
-            var colValues = StringBuilderCache.ReturnAndFree(sbColumnValues);
+            var colValues = StringBuilderCache.Retrieve(sbColumnValues);
             var sql = string.Format("{0} {1}{2}{3};",
                 GetQuotedTableName(modelDef),
                 colValues.Length > 0 ? "(" : "",

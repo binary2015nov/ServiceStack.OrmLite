@@ -445,7 +445,7 @@ namespace ServiceStack.OrmLite
                 sql.AppendFormat(DefaultValueFormat, defaultValue);
             }
 
-            return StringBuilderCache.ReturnAndFree(sql);
+            return StringBuilderCache.Retrieve(sql);
         }
 
         [Obsolete("Use GetColumnDefinition(fieldDef)")]
@@ -510,7 +510,7 @@ namespace ServiceStack.OrmLite
             sql.Append($"SELECT {GetColumnNames(modelDef)} FROM {GetQuotedTableName(modelDef)}");
 
             if (string.IsNullOrEmpty(sqlFilter))
-                return StringBuilderCache.ReturnAndFree(sql);
+                return StringBuilderCache.Retrieve(sql);
 
             sqlFilter = sqlFilter.SqlFmt(filterParams);
             if (!sqlFilter.StartsWith("ORDER ", StringComparison.OrdinalIgnoreCase)
@@ -521,7 +521,7 @@ namespace ServiceStack.OrmLite
 
             sql.Append(sqlFilter);
 
-            return StringBuilderCache.ReturnAndFree(sql);
+            return StringBuilderCache.Retrieve(sql);
         }
 
         public virtual string ToSelectStatement(ModelDefinition modelDef,
@@ -553,7 +553,7 @@ namespace ServiceStack.OrmLite
                 }
             }
 
-            return StringBuilderCache.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         public virtual SelectItem GetRowVersionColumnName(FieldDefinition field, string tablePrefix = null)
@@ -598,7 +598,7 @@ namespace ServiceStack.OrmLite
                 insertFields = new List<string>();
 
             var sbColumnNames = StringBuilderCache.Allocate();
-            var sbColumnValues = StringBuilderCacheAlt.Allocate();
+            var sbColumnValues = StringBuilderCache.Allocate();
             var modelDef = objWithProperties.GetType().GetModelDefinition();
 
             foreach (var fieldDef in modelDef.FieldDefinitionsArray)
@@ -629,8 +629,8 @@ namespace ServiceStack.OrmLite
                 }
             }
 
-            var sql = $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) " +
-                      $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
+            var sql = $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.Retrieve(sbColumnNames)}) " +
+                      $"VALUES ({StringBuilderCache.Retrieve(sbColumnValues)})";
 
             return sql;
         }
@@ -652,7 +652,7 @@ namespace ServiceStack.OrmLite
         public virtual void PrepareParameterizedInsertStatement<T>(IDbCommand cmd, ICollection<string> insertFields = null)
         {
             var sbColumnNames = StringBuilderCache.Allocate();
-            var sbColumnValues = StringBuilderCacheAlt.Allocate();
+            var sbColumnValues = StringBuilderCache.Allocate();
             var modelDef = typeof(T).GetModelDefinition();
 
             cmd.Parameters.Clear();
@@ -685,14 +685,14 @@ namespace ServiceStack.OrmLite
                 }
             }
 
-            cmd.CommandText = $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) " +
-                              $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
+            cmd.CommandText = $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.Retrieve(sbColumnNames)}) " +
+                              $"VALUES ({StringBuilderCache.Retrieve(sbColumnValues)})";
         }
 
         public virtual void PrepareInsertRowStatement<T>(IDbCommand dbCmd, Dictionary<string, object> args)
         {
             var sbColumnNames = StringBuilderCache.Allocate();
-            var sbColumnValues = StringBuilderCacheAlt.Allocate();
+            var sbColumnValues = StringBuilderCache.Allocate();
             var modelDef = typeof(T).GetModelDefinition();
 
             dbCmd.Parameters.Clear();
@@ -722,8 +722,8 @@ namespace ServiceStack.OrmLite
                 }
             }
 
-            dbCmd.CommandText = $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) " +
-                                $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
+            dbCmd.CommandText = $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.Retrieve(sbColumnNames)}) " +
+                                $"VALUES ({StringBuilderCache.Retrieve(sbColumnValues)})";
         }
 
         public virtual string ToUpdateStatement<T>(IDbCommand dbCmd, T item, ICollection<string> updateFields = null)
@@ -765,7 +765,7 @@ namespace ServiceStack.OrmLite
         public virtual bool PrepareParameterizedUpdateStatement<T>(IDbCommand cmd, ICollection<string> updateFields = null)
         {
             var sql = StringBuilderCache.Allocate();
-            var sqlFilter = StringBuilderCacheAlt.Allocate();
+            var sqlFilter = StringBuilderCache.Allocate();
             var modelDef = typeof(T).GetModelDefinition();
             var hadRowVesion = false;
             var updateAllFields = updateFields == null || updateFields.Count == 0;
@@ -813,9 +813,9 @@ namespace ServiceStack.OrmLite
 
             if (sql.Length > 0)
             {
-                var strFilter = StringBuilderCacheAlt.ReturnAndFree(sqlFilter);
+                var strFilter = StringBuilderCache.Retrieve(sqlFilter);
                 cmd.CommandText = $"UPDATE {GetQuotedTableName(modelDef)} " +
-                                  $"SET {StringBuilderCache.ReturnAndFree(sql)} {(strFilter.Length > 0 ? "WHERE " + strFilter : "")}";
+                                  $"SET {StringBuilderCache.Retrieve(sql)} {(strFilter.Length > 0 ? "WHERE " + strFilter : "")}";
             }
 
             return hadRowVesion;
@@ -882,7 +882,7 @@ namespace ServiceStack.OrmLite
                 }
             }
 
-            cmd.CommandText = $"DELETE FROM {GetQuotedTableName(modelDef)} WHERE {StringBuilderCache.ReturnAndFree(sqlFilter)}";
+            cmd.CommandText = $"DELETE FROM {GetQuotedTableName(modelDef)} WHERE {StringBuilderCache.Retrieve(sqlFilter)}";
 
             return hadRowVesion;
         }
@@ -1034,7 +1034,7 @@ namespace ServiceStack.OrmLite
         public virtual void PrepareUpdateRowStatement(IDbCommand dbCmd, object objWithProperties, ICollection<string> updateFields = null)
         {
             var sql = StringBuilderCache.Allocate();
-            var sqlFilter = StringBuilderCacheAlt.Allocate();
+            var sqlFilter = StringBuilderCache.Allocate();
             var modelDef = objWithProperties.GetType().GetModelDefinition();
             var updateAllFields = updateFields == null || updateFields.Count == 0;
 
@@ -1075,9 +1075,9 @@ namespace ServiceStack.OrmLite
                 }
             }
 
-            var strFilter = StringBuilderCacheAlt.ReturnAndFree(sqlFilter);
+            var strFilter = StringBuilderCache.Retrieve(sqlFilter);
             dbCmd.CommandText = $"UPDATE {GetQuotedTableName(modelDef)} " +
-                                $"SET {StringBuilderCache.ReturnAndFree(sql)}{(strFilter.Length > 0 ? " WHERE " + strFilter : "")}";
+                                $"SET {StringBuilderCache.Retrieve(sql)}{(strFilter.Length > 0 ? " WHERE " + strFilter : "")}";
 
             if (sql.Length == 0)
                 throw new Exception("No valid update properties provided (e.g. p => p.FirstName): " + dbCmd.CommandText);
@@ -1113,7 +1113,7 @@ namespace ServiceStack.OrmLite
             }
 
             dbCmd.CommandText = $"UPDATE {GetQuotedTableName(modelDef)} " +
-                                $"SET {StringBuilderCache.ReturnAndFree(sql)}{(string.IsNullOrEmpty(sqlFilter) ? "" : " ")}{sqlFilter}";
+                                $"SET {StringBuilderCache.Retrieve(sql)}{(string.IsNullOrEmpty(sqlFilter) ? "" : " ")}{sqlFilter}";
 
             if (sql.Length == 0)
                 throw new Exception("No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText);
@@ -1164,7 +1164,7 @@ namespace ServiceStack.OrmLite
             }
 
             dbCmd.CommandText = $"UPDATE {GetQuotedTableName(modelDef)} " +
-                                $"SET {StringBuilderCache.ReturnAndFree(sql)}{(string.IsNullOrEmpty(sqlFilter) ? "" : " ")}{sqlFilter}";
+                                $"SET {StringBuilderCache.Retrieve(sql)}{(string.IsNullOrEmpty(sqlFilter) ? "" : " ")}{sqlFilter}";
 
             if (sql.Length == 0)
                 throw new Exception("No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText);
@@ -1187,13 +1187,13 @@ namespace ServiceStack.OrmLite
             sql.Append($"DELETE FROM {GetQuotedTableName(modelDef)}");
 
             if (string.IsNullOrEmpty(sqlFilter))
-                return StringBuilderCache.ReturnAndFree(sql);
+                return StringBuilderCache.Retrieve(sql);
 
             sqlFilter = sqlFilter.SqlFmt(filterParams);
             sql.Append(" WHERE ");
             sql.Append(sqlFilter);
 
-            return StringBuilderCache.ReturnAndFree(sql);
+            return StringBuilderCache.Retrieve(sql);
         }
 
         public string GetDefaultValue(Type tableType, string fieldName)
@@ -1221,7 +1221,7 @@ namespace ServiceStack.OrmLite
         public virtual string ToCreateTableStatement(Type tableType)
         {
             var sbColumns = StringBuilderCache.Allocate();
-            var sbConstraints = StringBuilderCacheAlt.Allocate();
+            var sbConstraints = StringBuilderCache.Allocate();
 
             var modelDef = tableType.GetModelDefinition();
             foreach (var fieldDef in modelDef.FieldDefinitions)
@@ -1258,7 +1258,7 @@ namespace ServiceStack.OrmLite
                 sbConstraints.Append(GetForeignKeyOnUpdateClause(fieldDef.ForeignKey));
             }
             var sql = $"CREATE TABLE {GetQuotedTableName(modelDef)} " +
-                      $"\n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n); \n";
+                      $"\n(\n  {StringBuilderCache.Retrieve(sbColumns)}{StringBuilderCache.Retrieve(sbConstraints)} \n); \n";
 
             return sql;
         }
@@ -1331,7 +1331,7 @@ namespace ServiceStack.OrmLite
 
                 sqlIndexes.Add(
                     ToCreateIndexStatement(compositeIndex.Unique, indexName, modelDef,
-                    StringBuilderCache.ReturnAndFree(sb),
+                    StringBuilderCache.Retrieve(sb),
                     isCombined: true));
             }
 

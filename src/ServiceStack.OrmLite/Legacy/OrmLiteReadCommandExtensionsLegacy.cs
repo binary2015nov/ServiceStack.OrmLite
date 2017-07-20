@@ -33,7 +33,7 @@ namespace ServiceStack.OrmLite.Legacy
                 sql.Append(" WHERE ");
                 sql.Append(sqlFilter);
             }
-            return StringBuilderCache.ReturnAndFree(sql);
+            return StringBuilderCache.Retrieve(sql);
         }
 
         internal static IEnumerable<T> SelectLazyFmt<T>(this IDbCommand dbCmd, string filter, params object[] filterParams)

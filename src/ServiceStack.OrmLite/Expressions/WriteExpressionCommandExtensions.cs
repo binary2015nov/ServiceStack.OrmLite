@@ -168,7 +168,7 @@ namespace ServiceStack.OrmLite
             }
 
             dbCmd.CommandText = $"UPDATE {dialectProvider.GetQuotedTableName(modelDef)} " +
-                                $"SET {StringBuilderCache.ReturnAndFree(sql)} {whereSql}";
+                                $"SET {StringBuilderCache.Retrieve(sql)} {whereSql}";
         }
 
         public static long InsertOnly<T>(this IDbCommand dbCmd, T obj, string[] onlyFields, bool selectIdentity)

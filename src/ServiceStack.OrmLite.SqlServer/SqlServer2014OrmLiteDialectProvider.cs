@@ -91,14 +91,14 @@ namespace ServiceStack.OrmLite.SqlServer
                 sql.AppendFormat(DefaultValueFormat, defaultValue);
             }
 
-            return StringBuilderCache.ReturnAndFree(sql);
+            return StringBuilderCache.Retrieve(sql);
         }
 
         public override string ToCreateTableStatement(Type tableType)
         {
             var sbColumns = StringBuilderCache.Allocate();
-            var sbConstraints = StringBuilderCacheAlt.Allocate();
-            var sbTableOptions = StringBuilderCacheAlt.Allocate();
+            var sbConstraints = StringBuilderCache.Allocate();
+            var sbTableOptions = StringBuilderCache.Allocate();
 
             var fileTableAttrib = tableType.FirstAttribute<SqlServerFileTableAttribute>();
             var memoryTableAttrib = tableType.FirstAttribute<SqlServerMemoryOptimizedAttribute>();
@@ -170,8 +170,8 @@ namespace ServiceStack.OrmLite.SqlServer
 
             var sql = $"CREATE TABLE {GetQuotedTableName(modelDef)} ";
             sql += (fileTableAttrib != null)
-                ? $"\n AS FILETABLE{StringBuilderCache.ReturnAndFree(sbTableOptions)};"
-                : $"\n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n){StringBuilderCache.ReturnAndFree(sbTableOptions)}; \n";
+                ? $"\n AS FILETABLE{StringBuilderCache.Retrieve(sbTableOptions)};"
+                : $"\n(\n  {StringBuilderCache.Retrieve(sbColumns)}{StringBuilderCache.Retrieve(sbConstraints)} \n){StringBuilderCache.Retrieve(sbTableOptions)}; \n";
 
             return sql;
         }

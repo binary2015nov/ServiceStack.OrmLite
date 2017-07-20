@@ -185,8 +185,8 @@ namespace ServiceStack.OrmLite.MySql
             }
             var sql = string.Format(
                 "CREATE TABLE {0} \n(\n  {1}{2} \n); \n", GetQuotedTableName(modelDef), 
-                StringBuilderCache.ReturnAndFree(sbColumns), 
-                StringBuilderCacheAlt.ReturnAndFree(sbConstraints));
+                StringBuilderCache.Retrieve(sbColumns), 
+                StringBuilderCache.Retrieve(sbConstraints));
 
             return sql;
         }
@@ -198,7 +198,7 @@ namespace ServiceStack.OrmLite.MySql
                 var sql = StringBuilderCache.Allocate();
                 sql.AppendFormat("{0} {1}", GetQuotedColumnName(fieldDef.FieldName), TextColumnDefinition);
                 sql.Append(fieldDef.IsNullable ? " NULL" : " NOT NULL");
-                return StringBuilderCache.ReturnAndFree(sql);
+                return StringBuilderCache.Retrieve(sql);
             }
 
             var ret = base.GetColumnDefinition(fieldDef);

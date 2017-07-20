@@ -285,7 +285,7 @@ namespace ServiceStack.OrmLite.Oracle
                 }
                 sql.Append(sqlFilter);
             }
-            return StringBuilderCache.ReturnAndFree(sql);
+            return StringBuilderCache.Retrieve(sql);
         }
 
         public override void PrepareParameterizedInsertStatement<T>(IDbCommand dbCommand, ICollection<string> insertFields = null)
@@ -294,7 +294,7 @@ namespace ServiceStack.OrmLite.Oracle
                 insertFields = new List<string>();
 
             var sbColumnNames = StringBuilderCache.Allocate();
-            var sbColumnValues = StringBuilderCacheAlt.Allocate();
+            var sbColumnValues = StringBuilderCache.Allocate();
             var modelDef = GetModel(typeof(T));
 
             dbCommand.Parameters.Clear();
@@ -325,8 +325,8 @@ namespace ServiceStack.OrmLite.Oracle
 
             dbCommand.CommandText = string.Format("INSERT INTO {0} ({1}) VALUES ({2})",
                 GetQuotedTableName(modelDef), 
-                StringBuilderCache.ReturnAndFree(sbColumnNames), 
-                StringBuilderCacheAlt.ReturnAndFree(sbColumnValues));
+                StringBuilderCache.Retrieve(sbColumnNames), 
+                StringBuilderCache.Retrieve(sbColumnValues));
         }
 
         public override void SetParameterValues<T>(IDbCommand dbCmd, object obj)
@@ -384,7 +384,7 @@ namespace ServiceStack.OrmLite.Oracle
                 insertFields = new List<string>();
 
             var sbColumnNames = StringBuilderCache.Allocate();
-            var sbColumnValues = StringBuilderCacheAlt.Allocate();
+            var sbColumnValues = StringBuilderCache.Allocate();
 
             var tableType = objWithProperties.GetType();
             var modelDef = GetModel(tableType);
@@ -441,8 +441,8 @@ namespace ServiceStack.OrmLite.Oracle
 
             var sql = string.Format("INSERT INTO {0} ({1}) VALUES ({2}) ",
                 GetQuotedTableName(modelDef), 
-                StringBuilderCache.ReturnAndFree(sbColumnNames), 
-                StringBuilderCacheAlt.ReturnAndFree(sbColumnValues));
+                StringBuilderCache.Retrieve(sbColumnNames), 
+                StringBuilderCache.Retrieve(sbColumnValues));
 
             return sql;
         }
@@ -450,7 +450,7 @@ namespace ServiceStack.OrmLite.Oracle
         public override void PrepareUpdateRowStatement(IDbCommand dbCmd, object objWithProperties, ICollection<string> updateFields = null)
         {
             var sql = StringBuilderCache.Allocate();
-            var sqlFilter = StringBuilderCacheAlt.Allocate();
+            var sqlFilter = StringBuilderCache.Allocate();
             var tableType = objWithProperties.GetType();
             var modelDef = GetModel(tableType);
 
@@ -485,17 +485,17 @@ namespace ServiceStack.OrmLite.Oracle
                     .Append(this.AddParam(dbCmd, fieldDef.GetValue(objWithProperties), fieldDef).ParameterName);
             }
 
-            var strFilter = StringBuilderCacheAlt.ReturnAndFree(sqlFilter);
+            var strFilter = StringBuilderCache.Retrieve(sqlFilter);
             dbCmd.CommandText = string.Format("UPDATE {0} \nSET {1} {2}",
                 GetQuotedTableName(modelDef), 
-                StringBuilderCache.ReturnAndFree(sql),
+                StringBuilderCache.Retrieve(sql),
                 strFilter.Length > 0 ? "\nWHERE " + strFilter : "");
         }
 
         public override string ToCreateTableStatement(Type tableType)
         {
             var sbColumns = StringBuilderCache.Allocate();
-            var sbConstraints = StringBuilderCacheAlt.Allocate();
+            var sbConstraints = StringBuilderCache.Allocate();
 
             var sbPk = new StringBuilder();
 
@@ -534,8 +534,8 @@ namespace ServiceStack.OrmLite.Oracle
 
             var sql = string.Format(
                 "CREATE TABLE {0} \n(\n  {1}{2} \n) \n", GetQuotedTableName(modelDef), 
-                StringBuilderCache.ReturnAndFree(sbColumns), 
-                StringBuilderCacheAlt.ReturnAndFree(sbConstraints));
+                StringBuilderCache.Retrieve(sbColumns), 
+                StringBuilderCache.Retrieve(sbConstraints));
 
             return sql;
         }
@@ -627,7 +627,7 @@ namespace ServiceStack.OrmLite.Oracle
 
             sql.Append(fieldDef.IsNullable ? " NULL" : " NOT NULL");
 
-            var definition = StringBuilderCache.ReturnAndFree(sql);
+            var definition = StringBuilderCache.Retrieve(sql);
             return definition;
         }
 
@@ -687,7 +687,7 @@ namespace ServiceStack.OrmLite.Oracle
             var sql = StringBuilderCache.Allocate();
             sql.AppendFormat("SELECT 1 FROM {0}", GetQuotedTableName(fromModelDef));
 
-            var filter = StringBuilderCacheAlt.Allocate();
+            var filter = StringBuilderCache.Allocate();
             var hasFilter = false;
 
             if (objWithProperties != null)
@@ -732,7 +732,7 @@ namespace ServiceStack.OrmLite.Oracle
 
                 hasFilter = filter.Length > 0;
                 if (hasFilter)
-                    sql.AppendFormat("\nWHERE {0} ", StringBuilderCacheAlt.ReturnAndFree(filter));
+                    sql.AppendFormat("\nWHERE {0} ", StringBuilderCache.Retrieve(filter));
             }
 
             if (!string.IsNullOrEmpty(sqlFilter))
@@ -746,10 +746,10 @@ namespace ServiceStack.OrmLite.Oracle
                 sql.Append(sqlFilter);
             }
 
-            var sb = StringBuilderCacheAlt.Allocate()
+            var sb = StringBuilderCache.Allocate()
                 .Append("select 1  from dual where")
-                .AppendFormat(" exists ({0})", StringBuilderCache.ReturnAndFree(sql));
-            return StringBuilderCacheAlt.ReturnAndFree(sb);
+                .AppendFormat(" exists ({0})", StringBuilderCache.Retrieve(sql));
+            return StringBuilderCache.Retrieve(sb);
         }
 
         public override string ToSelectFromProcedureStatement(
@@ -772,7 +772,7 @@ namespace ServiceStack.OrmLite.Oracle
                 sbColumnValues.Append(fieldDef.GetQuotedValue(fromObjWithProperties));
             }
 
-            var columnValues = StringBuilderCache.ReturnAndFree(sbColumnValues);
+            var columnValues = StringBuilderCache.Retrieve(sbColumnValues);
             var sql = StringBuilderCache.Allocate();
             sql.AppendFormat("SELECT {0} FROM  {1} {2}{3}{4}  \n",
                 GetColumnNames(GetModel(outputModelType)),
@@ -792,7 +792,7 @@ namespace ServiceStack.OrmLite.Oracle
                 sql.Append(sqlFilter);
             }
 
-            return StringBuilderCache.ReturnAndFree(sql);
+            return StringBuilderCache.Retrieve(sql);
         }
 
         public override string ToExecuteProcedureStatement(object objWithProperties)
@@ -808,7 +808,7 @@ namespace ServiceStack.OrmLite.Oracle
                 sbColumnValues.Append(fieldDef.GetQuotedValue(objWithProperties));
             }
 
-            var columnValues = StringBuilderCache.ReturnAndFree(sbColumnValues);
+            var columnValues = StringBuilderCache.Retrieve(sbColumnValues);
             var sql = string.Format("EXECUTE PROCEDURE {0} {1}{2}{3};",
                 GetQuotedTableName(modelDef),
                 columnValues.Length > 0 ? "(" : "",
@@ -1036,7 +1036,7 @@ namespace ServiceStack.OrmLite.Oracle
             sbInner.Append(bodyExpression);
 
             if (!rows.HasValue && !offset.HasValue)
-                return StringBuilderCache.ReturnAndFree(sbInner) + " " + orderByExpression;
+                return StringBuilderCache.Retrieve(sbInner) + " " + orderByExpression;
 
             if (!offset.HasValue)
                 offset = 0;
@@ -1063,7 +1063,7 @@ namespace ServiceStack.OrmLite.Oracle
             }
             sbInner.Append(" " + orderByExpression);
 
-            var sql = StringBuilderCache.ReturnAndFree(sbInner);
+            var sql = StringBuilderCache.Retrieve(sbInner);
 
             //TODO paging doesn't work with ORACLE because we are returning RNUM so we need to figure out a way to return just the desired columns
             var sb = StringBuilderCache.Allocate();
@@ -1077,7 +1077,7 @@ namespace ServiceStack.OrmLite.Oracle
                 sb.Append(") \"_ss_ormlite_2_\" ");
             sb.AppendFormat("WHERE \"_ss_ormlite_2_\".RNUM > {0}", offset.Value);
 
-            return StringBuilderCache.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         public override string ToRowCountStatement(string innerSql)

@@ -183,7 +183,7 @@ namespace ServiceStack.OrmLite
                 sb.Append(qualifiedName);
             }
 
-            UnsafeSelect(StringBuilderCache.ReturnAndFree(sb));
+            UnsafeSelect(StringBuilderCache.Retrieve(sb));
             OnlyFields = new HashSet<string>(fieldsList, StringComparer.OrdinalIgnoreCase);
 
             return this;
@@ -355,7 +355,7 @@ namespace ServiceStack.OrmLite
 
                 sbParams.Append(p.ParameterName);
             }
-            var sqlIn = StringBuilderCache.ReturnAndFree(sbParams);
+            var sqlIn = StringBuilderCache.Retrieve(sbParams);
             return sqlIn;
         }
 
@@ -591,7 +591,7 @@ namespace ServiceStack.OrmLite
                 sbOrderBy.Append(qualifiedName + orderBySuffix);
             }
 
-            this.orderBy = "ORDER BY " + StringBuilderCache.ReturnAndFree(sbOrderBy);
+            this.orderBy = "ORDER BY " + StringBuilderCache.Retrieve(sbOrderBy);
             return this;
         }
 
@@ -643,7 +643,7 @@ namespace ServiceStack.OrmLite
                 sbOrderBy.Append(qualifiedName + useSuffix);
             }
 
-            this.orderBy = "ORDER BY " + StringBuilderCache.ReturnAndFree(sbOrderBy);
+            this.orderBy = "ORDER BY " + StringBuilderCache.Retrieve(sbOrderBy);
             return this;
         }
 
@@ -787,7 +787,7 @@ namespace ServiceStack.OrmLite
 
                     sb.Append(prop);
                 }
-                orderBy = "ORDER BY " + StringBuilderCache.ReturnAndFree(sb);
+                orderBy = "ORDER BY " + StringBuilderCache.Retrieve(sb);
             }
             else
             {
@@ -1069,7 +1069,7 @@ namespace ServiceStack.OrmLite
                 throw new ArgumentException("No non-null or non-default values were provided for type: " + typeof(T).Name);
 
             var sql = $"UPDATE {DialectProvider.GetQuotedTableName(modelDef)} " +
-                      $"SET {StringBuilderCache.ReturnAndFree(setFields)} {WhereExpression}";
+                      $"SET {StringBuilderCache.Retrieve(setFields)} {WhereExpression}";
 
             dbCmd.CommandText = SqlFilter != null
                 ? SqlFilter(sql)
@@ -1925,7 +1925,7 @@ namespace ServiceStack.OrmLite
             {
                 sb.Append(sb.Length > 0 ? "," + e : e);
             }
-            return StringBuilderCache.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         protected virtual List<object> VisitNewArrayFromExpressionList(NewArrayExpression na)

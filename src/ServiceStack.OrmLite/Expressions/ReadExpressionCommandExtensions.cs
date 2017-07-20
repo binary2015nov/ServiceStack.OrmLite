@@ -78,7 +78,7 @@ namespace ServiceStack.OrmLite
             if (typeof(T7) != typeof(EOT))
                 sb.Append($", {dialectProvider.GetQuotedTableName(typeof(T7).GetModelDefinition())}.*, 0 EOT");
 
-            return StringBuilderCache.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         internal static T Single<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate)

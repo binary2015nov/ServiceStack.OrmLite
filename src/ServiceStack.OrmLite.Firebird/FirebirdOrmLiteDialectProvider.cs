@@ -115,7 +115,7 @@ namespace ServiceStack.OrmLite.Firebird
                 sql.Append(sqlFilter);
             }
 
-            return StringBuilderCache.ReturnAndFree(sql);
+            return StringBuilderCache.Retrieve(sql);
         }
 
         public override string ToInsertRowStatement(IDbCommand cmd, object objWithProperties, ICollection<string> insertFields = null)
@@ -124,7 +124,7 @@ namespace ServiceStack.OrmLite.Firebird
                 insertFields = new List<string>();
 
             var sbColumnNames = StringBuilderCache.Allocate();
-            var sbColumnValues = StringBuilderCacheAlt.Allocate();
+            var sbColumnValues = StringBuilderCache.Allocate();
 
             var tableType = objWithProperties.GetType();
             var modelDef = GetModel(tableType);
@@ -171,8 +171,8 @@ namespace ServiceStack.OrmLite.Firebird
 
             var sql = string.Format("INSERT INTO {0} ({1}) VALUES ({2});",
                 GetQuotedTableName(modelDef), 
-                StringBuilderCache.ReturnAndFree(sbColumnNames), 
-                StringBuilderCacheAlt.ReturnAndFree(sbColumnValues));
+                StringBuilderCache.Retrieve(sbColumnNames), 
+                StringBuilderCache.Retrieve(sbColumnValues));
 
             return sql;
         }
@@ -188,7 +188,7 @@ namespace ServiceStack.OrmLite.Firebird
         public override void PrepareParameterizedInsertStatement<T>(IDbCommand cmd, ICollection<string> insertFields = null)
         {
             var sbColumnNames = StringBuilderCache.Allocate();
-            var sbColumnValues = StringBuilderCacheAlt.Allocate();
+            var sbColumnValues = StringBuilderCache.Allocate();
             var modelDef = OrmLiteUtils.GetModelDefinition(typeof(T));
 
             cmd.Parameters.Clear();
@@ -232,8 +232,8 @@ namespace ServiceStack.OrmLite.Firebird
 
             cmd.CommandText = string.Format("INSERT INTO {0} ({1}) VALUES ({2})",
                 GetQuotedTableName(modelDef), 
-                StringBuilderCache.ReturnAndFree(sbColumnNames), 
-                StringBuilderCacheAlt.ReturnAndFree(sbColumnValues));
+                StringBuilderCache.Retrieve(sbColumnNames), 
+                StringBuilderCache.Retrieve(sbColumnValues));
         }
 
         public override void PrepareUpdateRowStatement(IDbCommand dbCmd, object objWithProperties, ICollection<string> updateFields = null)
@@ -242,7 +242,7 @@ namespace ServiceStack.OrmLite.Firebird
                 updateFields = new List<string>();
 
             var sql = StringBuilderCache.Allocate();
-            var sqlFilter = StringBuilderCacheAlt.Allocate();
+            var sqlFilter = StringBuilderCache.Allocate();
             var tableType = objWithProperties.GetType();
             var modelDef = GetModel(tableType);
 
@@ -277,17 +277,17 @@ namespace ServiceStack.OrmLite.Firebird
                     .Append(this.AddParam(dbCmd, fieldDef.GetValue(objWithProperties), fieldDef).ParameterName);
             }
 
-            var strFilter = StringBuilderCacheAlt.ReturnAndFree(sqlFilter);
+            var strFilter = StringBuilderCache.Retrieve(sqlFilter);
             dbCmd.CommandText = string.Format("UPDATE {0} \nSET {1} {2}",
                 GetQuotedTableName(modelDef), 
-                StringBuilderCache.ReturnAndFree(sql),
+                StringBuilderCache.Retrieve(sql),
                 strFilter.Length > 0 ? "\nWHERE " + strFilter : "");
         }
 
         public override string ToCreateTableStatement(Type tableType)
         {
             var sbColumns = StringBuilderCache.Allocate();
-            var sbConstraints = StringBuilderCacheAlt.Allocate();
+            var sbConstraints = StringBuilderCache.Allocate();
 
             var sbPk = new StringBuilder();
 
@@ -328,8 +328,8 @@ namespace ServiceStack.OrmLite.Firebird
             var sql = string.Format(
                 "CREATE TABLE {0} \n(\n  {1}{2} \n); \n",
                 GetQuotedTableName(modelDef),
-                StringBuilderCache.ReturnAndFree(sbColumns),
-                StringBuilderCacheAlt.ReturnAndFree(sbConstraints));
+                StringBuilderCache.Retrieve(sbColumns),
+                StringBuilderCache.Retrieve(sbConstraints));
 
             return sql;
         }
@@ -374,7 +374,7 @@ namespace ServiceStack.OrmLite.Firebird
                 sql.Append(" NOT NULL");
             }
 
-            return StringBuilderCacheAlt.ReturnAndFree(sql);
+            return StringBuilderCache.Retrieve(sql);
         }
 
         public override List<string> ToCreateIndexStatements(Type tableType)
@@ -455,7 +455,7 @@ namespace ServiceStack.OrmLite.Firebird
             var sql = StringBuilderCache.Allocate();
             sql.AppendFormat("SELECT 1 \nFROM {0}", GetQuotedTableName(fromModelDef));
 
-            var filter = StringBuilderCacheAlt.Allocate();
+            var filter = StringBuilderCache.Allocate();
             var hasFilter = false;
 
             if (objWithProperties != null)
@@ -511,7 +511,7 @@ namespace ServiceStack.OrmLite.Firebird
 
                 hasFilter = filter.Length > 0;
                 if (hasFilter)
-                    sql.AppendFormat("\nWHERE {0} ", StringBuilderCacheAlt.ReturnAndFree(filter));
+                    sql.AppendFormat("\nWHERE {0} ", StringBuilderCache.Retrieve(filter));
             }
 
             if (!string.IsNullOrEmpty(sqlFilter))
@@ -525,11 +525,11 @@ namespace ServiceStack.OrmLite.Firebird
                 sql.Append(sqlFilter);
             }
 
-            var sb = StringBuilderCacheAlt.Allocate()
+            var sb = StringBuilderCache.Allocate()
                 .Append("select 1 from RDB$DATABASE where")
-                .AppendFormat(" exists ({0})", StringBuilderCache.ReturnAndFree(sql));
+                .AppendFormat(" exists ({0})", StringBuilderCache.Retrieve(sql));
 
-            return StringBuilderCacheAlt.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         public override string ToSelectFromProcedureStatement(
@@ -553,7 +553,7 @@ namespace ServiceStack.OrmLite.Firebird
                 sbColumnValues.Append(fieldDef.GetQuotedValue(fromObjWithProperties));
             }
 
-            var columnVaues = StringBuilderCache.ReturnAndFree(sbColumnValues);
+            var columnVaues = StringBuilderCache.Retrieve(sbColumnValues);
             var sql = StringBuilderCache.Allocate();
             sql.AppendFormat("SELECT {0} \nFROM {1} {2}{3}{4} \n",
                 GetColumnNames(GetModel(outputModelType)),
@@ -573,7 +573,7 @@ namespace ServiceStack.OrmLite.Firebird
                 sql.Append(sqlFilter);
             }
 
-            return StringBuilderCache.ReturnAndFree(sql);
+            return StringBuilderCache.Retrieve(sql);
         }
 
         public override string ToExecuteProcedureStatement(object objWithProperties)
@@ -591,7 +591,7 @@ namespace ServiceStack.OrmLite.Firebird
                 sbColumnValues.Append(fieldDef.GetQuotedValue(objWithProperties));
             }
 
-            var columnValues = StringBuilderCache.ReturnAndFree(sbColumnValues);
+            var columnValues = StringBuilderCache.Retrieve(sbColumnValues);
             var sql = string.Format("EXECUTE PROCEDURE {0} {1}{2}{3};",
                 GetQuotedTableName(modelDef),
                 columnValues.Length > 0 ? "(" : "",
@@ -785,11 +785,11 @@ namespace ServiceStack.OrmLite.Firebird
                 if (offset != null)
                     sqlPrefix += " SKIP " + offset;
 
-                var sql = StringBuilderCache.ReturnAndFree(sb);
+                var sql = StringBuilderCache.Retrieve(sb);
                 return sqlPrefix + sql.Substring("SELECT".Length);
             }
 
-            return StringBuilderCache.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         public override void DropColumn(IDbConnection db, Type modelType, string columnName)

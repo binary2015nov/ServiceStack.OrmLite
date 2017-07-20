@@ -84,12 +84,16 @@
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.*" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.*" />
 
-    <!-- <Reference Include="..\..\lib\netstandard1.1\ServiceStack.Interfaces.dll" /> -->
-    <PackageReference Include="ServiceStack.Interfaces.Core" Version="1.0.*" />
+    <Reference Include="..\..\lib\netstandard1.1\ServiceStack.Interfaces.dll" />
+    <Reference Include="..\..\lib\netstandard1.3\ServiceStack.Text.dll" />
+    <Reference Include="..\..\lib\netstandard1.3\ServiceStack.Common.dll" />
+    <Reference Include="..\..\lib\netstandard1.6\ServiceStack.Client.dll" />
+    <Reference Include="..\..\lib\netstandard1.6\ServiceStack.dll" />
+    <!--<PackageReference Include="ServiceStack.Interfaces.Core" Version="1.0.*" />
     <PackageReference Include="ServiceStack.Text.Core" Version="1.0.*" />
     <PackageReference Include="ServiceStack.Common.Core" Version="1.0.*" />
     <PackageReference Include="ServiceStack.Client.Core" Version="1.0.*" />
-    <PackageReference Include="ServiceStack.Core" Version="1.0.*" />
+    <PackageReference Include="ServiceStack.Core" Version="1.0.*" />-->
   </ItemGroup>
 
 </Project>
