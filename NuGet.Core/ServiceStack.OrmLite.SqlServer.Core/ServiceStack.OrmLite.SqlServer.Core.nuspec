@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>ServiceStack.OrmLite.SqlServer.Core</id> 
@@ -20,10 +20,10 @@
     <dependencies>
       <group targetFramework=".NETStandard1.3">
         <dependency id="System.Data.SqlClient" version="[4.3.1, )" />
-        <dependency id="ServiceStack.Interfaces.Core" version="1.0.0" />
-        <dependency id="ServiceStack.Text.Core" version="1.0.0" />
-        <dependency id="ServiceStack.Common.Core" version="1.0.0" />
-        <dependency id="ServiceStack.OrmLite.Core" version="1.0.0" />
+        <dependency id="ServiceStack.Interfaces.Core" version="1.0.41" />
+        <dependency id="ServiceStack.Text.Core" version="1.0.41" />
+        <dependency id="ServiceStack.Common.Core" version="1.0.41" />
+        <dependency id="ServiceStack.OrmLite.Core" version="1.0.41" />
       </group>
     </dependencies>
   </metadata>

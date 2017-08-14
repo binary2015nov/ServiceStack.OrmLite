@@ -6,8 +6,7 @@ using ServiceStack.OrmLite.Tests.Shared;
 
 namespace ServiceStack.OrmLite.Tests.Async
 {
-    public class ApiSqlServerTestsAsync
-        : OrmLiteTestBase
+    public class ApiSqlServerTestsAsync : OrmLiteTestBase
     {
         private IDbConnection db;
 

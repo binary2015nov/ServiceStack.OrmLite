@@ -1036,8 +1036,8 @@ namespace ServiceStack.OrmLite
 
         public virtual void PrepareUpdateRowStatement(IDbCommand dbCmd, object objWithProperties, ICollection<string> updateFields = null)
         {
-            var sql = StringBuilderCache.Allocate();
-            var sqlFilter = StringBuilderCache.Allocate();
+            var sql = new StringBuilder();
+            var sqlFilter = new StringBuilder();
             var modelDef = objWithProperties.GetType().GetModelDefinition();
             var updateAllFields = updateFields == null || updateFields.Count == 0;
 
@@ -1078,9 +1078,9 @@ namespace ServiceStack.OrmLite
                 }
             }
 
-            var strFilter = StringBuilderCache.Retrieve(sqlFilter);
+            var strFilter = sqlFilter.ToString();
             dbCmd.CommandText = $"UPDATE {GetQuotedTableName(modelDef)} " +
-                                $"SET {StringBuilderCache.Retrieve(sql)}{(strFilter.Length > 0 ? " WHERE " + strFilter : "")}";
+                                $"SET {sql}{(strFilter.Length > 0 ? " WHERE " + strFilter : "")}";
 
             if (sql.Length == 0)
                 throw new Exception("No valid update properties provided (e.g. p => p.FirstName): " + dbCmd.CommandText);

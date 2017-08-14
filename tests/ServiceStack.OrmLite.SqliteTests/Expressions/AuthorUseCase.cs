@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite.Tests.Expressions
 {
@@ -157,12 +158,12 @@ namespace ServiceStack.OrmLite.Tests.Expressions
                 var rows = db.UpdateOnly(new Author() { Active = false }, ev);
                 Assert.AreEqual(expected, rows);
 
-                // insert values  only in Id, Name, Birthday, Rate and Active fields 
-                expected = 4;
+                // insert values only in Id, Name, Birthday, Rate and Active fields 
+                expected = 12;
                 ev.Insert(rn => new { rn.Id, rn.Name, rn.Birthday, rn.Active, rn.Rate });
                 db.InsertOnly(new Author() { Active = false, Rate = 0, Name = "Victor Grozny", Birthday = DateTime.Today.AddYears(-18) }, rn => new { rn.Id, rn.Name, rn.Birthday, rn.Active, rn.Rate });
                 db.InsertOnly(new Author() { Active = false, Rate = 0, Name = "Ivan Chorny", Birthday = DateTime.Today.AddYears(-19) }, rn => new { rn.Id, rn.Name, rn.Birthday, rn.Active, rn.Rate });
-				ev.Where().Where(rn => !rn.Active);
+                ev.Where().Where(rn => rn.Active);
                 result = db.Select(ev);
                 Assert.AreEqual(expected, result.Count);
 

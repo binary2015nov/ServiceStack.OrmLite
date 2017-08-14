@@ -20,10 +20,10 @@
     <dependencies>
       <group targetFramework=".NETStandard1.6">
         <dependency id="MySql.Data" version="[7.0.7-m61, )" />
-        <dependency id="ServiceStack.Interfaces.Core" version="1.0.0" />
-        <dependency id="ServiceStack.Text.Core" version="1.0.0" />
-        <dependency id="ServiceStack.Common.Core" version="1.0.0" />
-        <dependency id="ServiceStack.OrmLite.Core" version="1.0.0" />
+        <dependency id="ServiceStack.Interfaces.Core" version="1.0.41" />
+        <dependency id="ServiceStack.Text.Core" version="1.0.41" />
+        <dependency id="ServiceStack.Common.Core" version="1.0.41" />
+        <dependency id="ServiceStack.OrmLite.Core" version="1.0.41" />
       </group>
     </dependencies>
   </metadata> 
