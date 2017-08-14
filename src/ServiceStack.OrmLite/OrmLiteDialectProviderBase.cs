@@ -503,7 +503,7 @@ namespace ServiceStack.OrmLite
                 && sqlFilter.TrimStart().StartsWith(SelectStatement, StringComparison.OrdinalIgnoreCase);
 
             if (isFullSelectStatement)
-                return sqlFilter.SqlFmt(filterParams);
+                return sqlFilter.SqlFmt(this, filterParams);
 
             var modelDef = tableType.GetModelDefinition();
             var sql = StringBuilderCache.Allocate();
@@ -512,7 +512,7 @@ namespace ServiceStack.OrmLite
             if (string.IsNullOrEmpty(sqlFilter))
                 return StringBuilderCache.Retrieve(sql);
 
-            sqlFilter = sqlFilter.SqlFmt(filterParams);
+            sqlFilter = sqlFilter.SqlFmt(this, filterParams);
             if (!sqlFilter.StartsWith("ORDER ", StringComparison.OrdinalIgnoreCase)
                 && !sqlFilter.StartsWith("LIMIT ", StringComparison.OrdinalIgnoreCase))
             {
@@ -542,15 +542,8 @@ namespace ServiceStack.OrmLite
 
             if (offset != null || rows != null)
             {
-                sb.Append("\nLIMIT ");
-                if (offset == null)
-                {
-                    sb.Append(rows);
-                }
-                else
-                {
-                    sb.Append(rows.GetValueOrDefault(int.MaxValue)).Append(" OFFSET ").Append(offset);
-                }
+                sb.Append("\n");
+                sb.Append(SqlLimit(offset, rows));
             }
 
             return StringBuilderCache.Retrieve(sb);
@@ -1184,7 +1177,7 @@ namespace ServiceStack.OrmLite
                 && sqlFilter.Substring(0, deleteStatement.Length).ToUpper().Equals(deleteStatement);
 
             if (isFullDeleteStatement)
-                return sqlFilter.SqlFmt(filterParams);
+                return sqlFilter.SqlFmt(this, filterParams);
 
             var modelDef = tableType.GetModelDefinition();
             sql.Append($"DELETE FROM {GetQuotedTableName(modelDef)}");
@@ -1192,7 +1185,7 @@ namespace ServiceStack.OrmLite
             if (string.IsNullOrEmpty(sqlFilter))
                 return StringBuilderCache.Retrieve(sql);
 
-            sqlFilter = sqlFilter.SqlFmt(filterParams);
+            sqlFilter = sqlFilter.SqlFmt(this, filterParams);
             sql.Append(" WHERE ");
             sql.Append(sqlFilter);
 
@@ -1581,6 +1574,20 @@ namespace ServiceStack.OrmLite
             return $"ALTER TABLE {provider.GetQuotedTableName(modelType.GetModelDefinition().ModelName)} " +
                    $"DROP COLUMN {provider.GetQuotedColumnName(columnName)};";
         }
+
+        public virtual string SqlConcat(IEnumerable<object> args) => $"CONCAT({string.Join(", ", args)})";
+
+        public virtual string SqlCurrency(string fieldOrValue) => SqlCurrency(fieldOrValue, "$");
+
+        public virtual string SqlCurrency(string fieldOrValue, string currencySymbol) => SqlConcat(new List<string> { currencySymbol, fieldOrValue });
+
+        public virtual string SqlBool(bool value) => value ? "true" : "false";
+
+        public virtual string SqlLimit(int? offset = null, int? rows = null) => rows == null && offset == null
+            ? "" 
+            : offset == null
+                ? "LIMIT " + rows
+                : "LIMIT " + rows.GetValueOrDefault(int.MaxValue) + " OFFSET " + offset;
 
         //Async API's, should be overrided by Dialect Providers to use .ConfigureAwait(false)
         //Default impl below uses TaskAwaiter shim in async.cs

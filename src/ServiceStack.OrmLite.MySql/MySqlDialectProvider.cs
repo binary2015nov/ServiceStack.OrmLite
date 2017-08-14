@@ -208,6 +208,9 @@ namespace ServiceStack.OrmLite.MySql
             return ret;
         }
 
+        public override string SqlCurrency(string fieldOrValue, string currencySymbol) => 
+            SqlConcat(new []{ "'" + currencySymbol + "'", "cast(" + fieldOrValue + " as decimal(15,2))" });
+
         protected MySqlConnection Unwrap(IDbConnection db)
         {
             return (MySqlConnection)db.ToDbConnection();
