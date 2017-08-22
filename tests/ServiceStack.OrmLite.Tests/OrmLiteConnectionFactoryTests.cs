@@ -20,13 +20,13 @@ namespace ServiceStack.OrmLite.Tests
 
             using (var db = factory.OpenDbConnection())
             {
-                db.CreateTable<Shipper>(false);
+                db.CreateTable<Shipper>();
                 db.Insert(new Shipper { CompanyName = "I am shipper" });
             }
 
             using (var db = factory.OpenDbConnection())
             {
-                db.CreateTable<Shipper>(false);
+                db.CreateTable<Shipper>();
                 Assert.That(db.Select<Shipper>(), Has.Count.EqualTo(0));
             }
         }
@@ -42,13 +42,13 @@ namespace ServiceStack.OrmLite.Tests
 
             using (var db = factory.OpenDbConnection())
             {
-                db.CreateTable<Shipper>(false);
+                db.CreateTable<Shipper>();
                 db.Insert(new Shipper { CompanyName = "I am shipper" });
             }
 
             using (var db = factory.OpenDbConnection())
             {
-                db.CreateTable<Shipper>(false);
+                db.CreateTable<Shipper>();
                 Assert.That(db.Select<Shipper>(), Has.Count.EqualTo(1));
             }
         }
@@ -61,13 +61,13 @@ namespace ServiceStack.OrmLite.Tests
 
             using (var db = factory.OpenDbConnection())
             {
-                db.CreateTable<Shipper>(false);
+                db.CreateTable<Shipper>();
                 db.Insert(new Shipper { CompanyName = "I am shipper" });
             }
 
             using (var db = factory.OpenDbConnection())
             {
-                db.CreateTable<Shipper>(false);
+                db.CreateTable<Shipper>();
                 Assert.That(db.Select<Shipper>(), Has.Count.EqualTo(1));
             }
         }
