@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFrameworks>net45</TargetFrameworks>
     <AssemblyName>ServiceStack.OrmLite.Sqlite.Windows.Testss</AssemblyName>
     <PackageId>ServiceStack.OrmLite.Sqlite.Windows.Tests</PackageId>
     <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
@@ -16,6 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
     <PackageReference Include="NUnit" Version="3.6.1" />
     <ProjectReference Include="..\..\src\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj" />
     <ProjectReference Include="..\..\src\ServiceStack.OrmLite.Sqlite.Windows\ServiceStack.OrmLite.Sqlite.Windows.csproj" />

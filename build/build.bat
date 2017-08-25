@@ -5,4 +5,3 @@ REM %MSBUILD% build.proj /target:TeamCityBuild;NuGetPack /property:Configuration
 REM %MSBUILD% build-sn.proj /target:NuGetPack /property:Configuration=Signed;PatchVersion=9
 
 %msbuild% /p:Configuration=Release ..\src\ServiceStack.OrmLite.sln
-pause

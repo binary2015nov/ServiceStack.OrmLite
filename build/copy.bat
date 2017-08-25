@@ -13,10 +13,15 @@ COPY ..\src\T4\*.*  ..\..\ServiceStack.OrmLite\NuGet\ServiceStack.OrmLite.T4\con
 COPY ..\src\ServiceStack.OrmLite\bin\%BUILD%\net45\ServiceStack.OrmLite.* ..\..\ServiceStack\lib\net45
 COPY ..\src\ServiceStack.OrmLite\bin\%BUILD%\netstandard1.3\ServiceStack.OrmLite.* ..\..\ServiceStack\lib\netstandard1.3
 COPY ..\src\ServiceStack.OrmLite.Sqlite\bin\%BUILD%\net45\ServiceStack.OrmLite.Sqlite.* ..\..\ServiceStack\lib\net45
+COPY ..\src\ServiceStack.OrmLite.Sqlite\bin\%BUILD%\net45\System.Data.SQLite.dll ..\..\ServiceStack\lib\net45\System.Data.SQLite.dll
+COPY ..\src\ServiceStack.OrmLite.Sqlite\bin\%BUILD%\net45\x64\* ..\..\ServiceStack\lib\net45\x64
+COPY ..\src\ServiceStack.OrmLite.Sqlite\bin\%BUILD%\net45\x86\* ..\..\ServiceStack\lib\net45\x86
 COPY ..\src\ServiceStack.OrmLite.Sqlite\bin\%BUILD%\netstandard1.3\ServiceStack.OrmLite.Sqlite.* ..\..\ServiceStack\lib\netstandard1.3
 COPY ..\src\ServiceStack.OrmLite.Sqlite.Windows\bin\%BUILD%\net45\ServiceStack.OrmLite.Sqlite.Windows.* ..\..\ServiceStack\lib\net45
+COPY ..\src\ServiceStack.OrmLite.Sqlite.Windows\bin\%BUILD%\net45\System.Data.SQLite.dll ..\..\ServiceStack\lib\net45\System.Data.SQLite.dll
 COPY ..\src\ServiceStack.OrmLite.SqlServer\bin\%BUILD%\net45\ServiceStack.OrmLite.SqlServer.* ..\..\ServiceStack\lib\net45
 COPY ..\src\ServiceStack.OrmLite.SqlServer\bin\%BUILD%\netstandard1.3\ServiceStack.OrmLite.SqlServer.* ..\..\ServiceStack\lib\netstandard1.3
+COPY ..\src\ServiceStack.OrmLite.MySql\bin\%BUILD%\net45\MySql.Data.dll ..\..\ServiceStack\lib\net45
 COPY ..\src\ServiceStack.OrmLite.MySql\bin\%BUILD%\net45\ServiceStack.OrmLite.MySql.* ..\..\ServiceStack\lib\net45
 COPY ..\src\ServiceStack.OrmLite.MySql\bin\%BUILD%\netstandard1.6\ServiceStack.OrmLite.MySql.* ..\..\ServiceStack\lib\netstandard1.6
 COPY ..\src\ServiceStack.OrmLite.PostgreSQL\bin\%BUILD%\net45\ServiceStack.OrmLite.PostgreSQL.* ..\..\ServiceStack\lib\net45
