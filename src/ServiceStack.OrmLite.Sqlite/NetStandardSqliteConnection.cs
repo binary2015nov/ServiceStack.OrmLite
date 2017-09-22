@@ -1,4 +1,4 @@
-#if NETSTANDARD2_0
+#if NETSTANDARD1_3 || NETSTANDARD2_0
 using System.Data;
 using Microsoft.Data.Sqlite;
 
