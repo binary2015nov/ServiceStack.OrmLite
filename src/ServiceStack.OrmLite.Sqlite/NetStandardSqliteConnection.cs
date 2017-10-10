@@ -6,8 +6,7 @@ namespace ServiceStack.OrmLite.Sqlite
 {
     public class NetStandardSqliteConnection : SqliteConnection
     {
-        public NetStandardSqliteConnection(string connectionString) 
-            : base(connectionString) {}
+        public NetStandardSqliteConnection(string connectionString) : base(connectionString) { }
 
         public override SqliteTransaction BeginTransaction(IsolationLevel isolationLevel)
         {
