@@ -26,7 +26,7 @@ namespace ServiceStack.OrmLite.Tests
 #if NETCORE
             Licensing.RegisterLicense(Environment.GetEnvironmentVariable("SERVICESTACK_LICENSE"));
 #else            
-            Licensing.RegisterLicense(new AppSettings().GetString("servicestack:license"));
+            Licensing.RegisterLicense(new AppSettings().Get("servicestack:license"));
 #endif
         }
 
@@ -57,7 +57,7 @@ namespace ServiceStack.OrmLite.Tests
 #if NETCORE
             Licensing.RegisterLicense(Environment.GetEnvironmentVariable("SERVICESTACK_LICENSE"));
 #else            
-            Licensing.RegisterLicense(new AppSettings().GetString("servicestack:license"));
+            Licensing.RegisterLicense(new AppSettings().Get("servicestack:license"));
 #endif
             Create10Tables();
             Create10Tables();
