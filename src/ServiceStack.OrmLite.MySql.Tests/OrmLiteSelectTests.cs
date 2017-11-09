@@ -6,10 +6,8 @@ using ServiceStack.Text;
 namespace ServiceStack.OrmLite.MySql.Tests
 {
 	[TestFixture]
-	public class OrmLiteSelectTests
-		: OrmLiteTestBase
+	public class OrmLiteSelectTests : OrmLiteTestBase
 	{
-
 		[Test]
 		public void Can_GetById_int_from_ModelWithFieldsOfDifferentTypes_table()
 		{
