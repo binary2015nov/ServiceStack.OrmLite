@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using NUnit.Framework;
 using ServiceStack.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace ServiceStack.OrmLite.SqlServerTests.TableOptions
 {
@@ -106,11 +107,28 @@ namespace ServiceStack.OrmLite.SqlServerTests.TableOptions
             Assert.IsTrue(sql.Contains("MEMORY_OPTIMIZED = ON"));
             Assert.IsTrue(sql.Contains("COLLATE"));
 
-            var id = Db.Insert(new TypeWithMemTableWithCollatedHashIndex {Name = name, Index = index }, selectIdentity: true);
+            var id = Db.Insert(new TypeWithMemTableWithCollatedHashIndex { Name = name, Index = index }, selectIdentity: true);
             var fromDb = Db.SingleById<TypeWithMemTableWithCollatedHashIndex>(id);
 
             Assert.AreEqual(name, fromDb.Name);
             Assert.AreEqual(index, fromDb.Index);
+        }
+
+        [Test]
+        public void Can_cache_multiple_items_in_parallel()
+        {
+            Db.CreateTable<TypeWithMemTableWithCollatedHashIndex>(true);
+
+            Db.Insert(new TypeWithMemTableWithCollatedHashIndex { Index = "test" });
+
+            var factory = new OrmLiteConnectionFactory(Db.ConnectionString, Db.GetDialectProvider());
+            var fns = 10.Times(i => (Action)(() =>
+            {
+                var db = factory.OpenDbConnection();
+                db.Update(new TypeWithMemTableWithCollatedHashIndex { Index = "test" + i });
+            }));
+
+            Parallel.Invoke(fns.ToArray());
         }
     }
 

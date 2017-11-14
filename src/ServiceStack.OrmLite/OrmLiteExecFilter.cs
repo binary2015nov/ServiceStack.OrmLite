@@ -58,8 +58,7 @@ namespace ServiceStack.OrmLite
             var dbCmd = CreateCommand(dbConn);
             try
             {
-                var ret = filter(dbCmd);
-                return ret;
+                return filter(dbCmd);        
             }
             catch (Exception ex)
             {

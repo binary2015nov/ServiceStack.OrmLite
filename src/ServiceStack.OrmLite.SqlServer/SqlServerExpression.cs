@@ -100,15 +100,8 @@ namespace ServiceStack.OrmLite.SqlServer
             var strFields = StringBuilderCache.Retrieve(setFields);
             if (strFields.Length == 0)
                 throw new ArgumentException("No non-null or non-default values were provided for type: " + typeof(T).Name);
-            if (IsMemoryOptimizedTable(typeof(T)))
-                dbCmd.CommandText = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;";
 
             dbCmd.CommandText += $"UPDATE {dialectProvider.GetQuotedTableName(modelDef)} SET {strFields} {q.WhereExpression}";
-        }
-
-        public static bool IsMemoryOptimizedTable(Type type)
-        {
-            return type.FirstAttribute<ServiceStack.DataAnnotations.SqlServerMemoryOptimizedAttribute>() != null;
         }
     }
 }

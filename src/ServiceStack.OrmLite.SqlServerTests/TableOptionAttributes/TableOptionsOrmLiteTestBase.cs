@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using NUnit.Framework;
+using ServiceStack.DataAnnotations;
 using ServiceStack.Logging;
 using ServiceStack.OrmLite.SqlServer.Converters;
 
@@ -44,12 +45,14 @@ namespace ServiceStack.OrmLite.SqlServerTests.TableOptions
                 var dialectProvider = SqlServerConverters.Configure(SqlServer2014Dialect.Provider);
 
                 Db = new OrmLiteConnectionFactory(ConnectionString, dialectProvider).OpenDbConnection();
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
+
     }
 
     public class SqlServer2016TableOptionsOrmLiteTestBase : OrmLiteTestBase

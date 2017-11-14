@@ -423,6 +423,5 @@ namespace ServiceStack.OrmLite.SqlServer
             }
         }
 #endif
-
     }
 }

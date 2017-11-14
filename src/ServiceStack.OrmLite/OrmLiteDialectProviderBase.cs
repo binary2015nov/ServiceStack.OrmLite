@@ -26,8 +26,7 @@ using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite
 {
-    public abstract class OrmLiteDialectProviderBase<TDialect>
-        : IOrmLiteDialectProvider
+    public abstract class OrmLiteDialectProviderBase<TDialect> : IOrmLiteDialectProvider
         where TDialect : IOrmLiteDialectProvider
     {
         protected static readonly ILog Log = LogManager.GetLogger(typeof(IOrmLiteDialectProvider));
