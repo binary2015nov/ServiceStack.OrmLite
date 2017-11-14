@@ -14,7 +14,7 @@ namespace ServiceStack.OrmLite.SqlServerTests.Issues
         public SqlGeography loc { get; set; }
     }
 
-    [TestFixture]
+    [TestFixture, NUnit.Framework.Ignore("SqlServer2012")]
     public class JamesGeoIssue : SqlServer2012ConvertersOrmLiteTestBase
     {
         [Test]

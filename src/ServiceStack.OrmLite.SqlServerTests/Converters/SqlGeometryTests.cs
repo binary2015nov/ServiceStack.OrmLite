@@ -7,7 +7,7 @@ using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite.SqlServerTests.Converters
 {
-    [TestFixture]
+    [TestFixture, NUnit.Framework.Ignore("SqlServer2012")]
     public class SqlGeometryTests : SqlServer2012ConvertersOrmLiteTestBase
     {
         public string ColumnDefinition { get; set; }

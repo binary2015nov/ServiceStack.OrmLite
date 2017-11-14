@@ -20,10 +20,6 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
 
-  <ItemGroup>
-      <Reference Include="..\..\lib\net45\ServiceStack.Interfaces.dll" />
-  </ItemGroup>
-
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <DefineConstants>$(DefineConstants);NET45;ASYNC</DefineConstants>
     <SignAssembly>True</SignAssembly>
@@ -37,6 +33,7 @@
     <ProjectReference Include="..\ServiceStack.OrmLite.SqlServer\ServiceStack.OrmLite.SqlServer.csproj" />
     <Reference Include="..\..\lib\net45\ServiceStack.Text.dll" />
     <Reference Include="..\..\lib\net45\ServiceStack.Common.dll" />
+    <Reference Include="..\..\lib\net45\ServiceStack.Interfaces.dll" />
   </ItemGroup>
 
 </Project>

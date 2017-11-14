@@ -21,11 +21,6 @@ namespace ServiceStack.OrmLite.SqlServerTests
             ConnectionString = ConfigurationManager.ConnectionStrings["testDb"].ConnectionString;
         }
 
-        public void Log(string text)
-        {
-            Console.WriteLine(text);
-        }
-
         public virtual IDbConnection OpenDbConnection(string connString = null, IOrmLiteDialectProvider dialectProvider = null)
         {
             dialectProvider = dialectProvider ?? OrmLiteConfig.DialectProvider;

@@ -5,7 +5,7 @@ using ServiceStack.DataAnnotations;
 
 namespace ServiceStack.OrmLite.SqlServerTests.Converters
 {
-    [TestFixture]
+    [TestFixture, NUnit.Framework.Ignore("SqlServer2012")]
     public class SqlHierarchyIdTests : SqlServer2012ConvertersOrmLiteTestBase
     {
         public string ColumnDefinition { get; set; }
@@ -71,7 +71,7 @@ namespace ServiceStack.OrmLite.SqlServerTests.Converters
             var stringValue = "/5/4/1/";
             var treeId = SqlHierarchyId.Parse(stringValue);
 
-            Db.Insert(new HierarchyIdTable() { TreeId = treeId, StringTreeId = stringValue, NullTreeId = SqlHierarchyId.Null });
+            Db.Insert(new HierarchyIdTable { TreeId = treeId, StringTreeId = stringValue, NullTreeId = SqlHierarchyId.Null });
 
             var result = Db.Select<FlippedHierarchyIdTable>().FirstOrDefault();
             Assert.AreEqual(stringValue, result.StringTreeId);
@@ -118,10 +118,10 @@ namespace ServiceStack.OrmLite.SqlServerTests.Converters
         public long Id { get; set; }
 
         [Alias("StringTreeId")]
-        public SqlHierarchyId TreeId { get; set; }
+        public string TreeId { get; set; }
 
         [Alias("TreeId")]
-        public string StringTreeId { get; set; }
+        public SqlHierarchyId StringTreeId { get; set; }
 
         public string NullTreeId { get; set; }
     }

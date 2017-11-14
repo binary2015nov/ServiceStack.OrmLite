@@ -5,7 +5,6 @@ namespace ServiceStack.OrmLite.SqlServerTests.Expressions
 {
 	public class Author
 	{
-		public Author(){}
 		[AutoIncrement]
 		[Alias("AuthorID")]
 		public Int32 Id { get; set;}
