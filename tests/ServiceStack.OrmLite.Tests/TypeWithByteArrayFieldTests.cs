@@ -33,18 +33,18 @@ namespace ServiceStack.OrmLite.Tests
                 db.DropAndCreateTable<Attachment>();
                 db.GetLastSql().Print();
 
-                var bytes = "https://www.google.com/images/srpr/logo11w.png".GetBytesFromUrl();
+                var bytes = "https://servicestack.net/img/logo.png".GetBytesFromUrl();
 
                 var file = new Attachment {
                     Data = bytes,
-                    Description = "Google Logo",
+                    Description = "ServiceStack Logo",
                     Type = "png",
-                    FileName = "logo11w.png"
+                    FileName = "logo.png"
                 };
 
                 db.Insert(file);
 
-                var fromDb = db.Single<Attachment>(q => q.FileName == "logo11w.png");
+                var fromDb = db.Single<Attachment>(q => q.FileName == "logo.png");
 
                 Assert.AreEqual(file.Data, fromDb.Data);
 

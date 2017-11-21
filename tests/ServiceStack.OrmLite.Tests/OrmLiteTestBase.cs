@@ -116,7 +116,7 @@ namespace ServiceStack.OrmLite.Tests
         [OneTimeTearDown]
         public void TestFixtureTearDown()
         {
-            OrmLiteContext.Instance.ClearItems();
+            OrmLiteContext.Instance.ClearRuntime();
         }
 
         private OrmLiteConnectionFactory Init()

@@ -173,6 +173,12 @@ namespace ServiceStack.OrmLite
             }
             set { GetOrCreateState().TSTransaction = value; }
         }
+
+        public void ClearRuntime()
+        {
+            ClearItems();
+            OrmLiteConfigExtensions.ClearCache();
+        }
     }
 
     public class OrmLiteState

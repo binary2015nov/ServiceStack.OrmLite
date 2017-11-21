@@ -11,8 +11,7 @@ using ServiceStack.Text;
 namespace ServiceStack.OrmLite.Tests
 {
     [TestFixture]
-    public class OrmLiteUpdateTests
-        : OrmLiteTestBase
+    public class OrmLiteUpdateTests : OrmLiteTestBase
     {
         private ModelWithFieldsOfDifferentTypes CreateModelWithFieldsOfDifferentTypes(IDbConnection db)
         {
@@ -163,15 +162,8 @@ namespace ServiceStack.OrmLite.Tests
                 db.DropAndCreateTable<Person>();
                 db.Insert(new Person { Id = 1, FirstName = "OriginalFirst", LastName = "OriginalLast", Age = 100 });
 
-                db.UpdateOnly(() => new Person { FirstName = "UpdatedFirst", Age = 27 });
-                var row = db.Select<Person>().First();
-                Assert.That(row, Is.EqualTo(new Person(1, "UpdatedFirst", "OriginalLast", 27)));
-
-                db.DeleteAll<Person>();
-                db.Insert(new Person { Id = 1, FirstName = "OriginalFirst", LastName = "OriginalLast", Age = 100 });
-
                 db.UpdateOnly(new Person { FirstName = "UpdatedFirst", Age = 27 }, p => p.FirstName);
-                row = db.Select<Person>().First();
+                var row = db.Select<Person>().First();
                 Assert.That(row, Is.EqualTo(new Person(1, "UpdatedFirst", "OriginalLast", 100)));
 
                 db.DeleteAll<Person>();

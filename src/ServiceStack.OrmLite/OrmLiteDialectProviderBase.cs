@@ -708,7 +708,7 @@ namespace ServiceStack.OrmLite
         public virtual bool PrepareParameterizedUpdateStatement<T>(IDbCommand cmd, ICollection<string> updateFields = null)
         {
             var sql = StringBuilderCache.Allocate();
-            var sqlFilter = StringBuilderCache.Allocate();
+            var sqlFilter = new StringBuilder();
             var modelDef = typeof(T).GetModelDefinition();
             var hadRowVesion = false;
             var updateAllFields = updateFields == null || updateFields.Count == 0;
@@ -756,7 +756,7 @@ namespace ServiceStack.OrmLite
 
             if (sql.Length > 0)
             {
-                var strFilter = StringBuilderCache.Retrieve(sqlFilter);
+                var strFilter = sqlFilter.ToString();
                 cmd.CommandText = $"UPDATE {GetQuotedTableName(modelDef)} " +
                                   $"SET {StringBuilderCache.Retrieve(sql)} {(strFilter.Length > 0 ? "WHERE " + strFilter : "")}";
             }
@@ -1029,7 +1029,7 @@ namespace ServiceStack.OrmLite
 
         public virtual void PrepareUpdateRowStatement<T>(IDbCommand dbCmd, Dictionary<string, object> args, string sqlFilter)
         {
-            var sql = StringBuilderCache.Allocate();
+            var sql = new StringBuilder();
             var modelDef = typeof(T).GetModelDefinition();
 
             foreach (var entry in args)
@@ -1057,7 +1057,7 @@ namespace ServiceStack.OrmLite
             }
 
             dbCmd.CommandText = $"UPDATE {GetQuotedTableName(modelDef)} " +
-                                $"SET {StringBuilderCache.Retrieve(sql)}{(string.IsNullOrEmpty(sqlFilter) ? "" : " ")}{sqlFilter}";
+                                $"SET {sql}{(string.IsNullOrEmpty(sqlFilter) ? "" : " ")}{sqlFilter}";
 
             if (sql.Length == 0)
                 throw new Exception("No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText);
@@ -1065,7 +1065,7 @@ namespace ServiceStack.OrmLite
 
         public virtual void PrepareUpdateRowAddStatement<T>(IDbCommand dbCmd, Dictionary<string, object> args, string sqlFilter)
         {
-            var sql = StringBuilderCache.Allocate();
+            var sql = new StringBuilder();
             var modelDef = typeof(T).GetModelDefinition();
 
             foreach (var entry in args)
@@ -1108,7 +1108,7 @@ namespace ServiceStack.OrmLite
             }
 
             dbCmd.CommandText = $"UPDATE {GetQuotedTableName(modelDef)} " +
-                                $"SET {StringBuilderCache.Retrieve(sql)}{(string.IsNullOrEmpty(sqlFilter) ? "" : " ")}{sqlFilter}";
+                                $"SET {sql}{(string.IsNullOrEmpty(sqlFilter) ? "" : " ")}{sqlFilter}";
 
             if (sql.Length == 0)
                 throw new Exception("No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText);
