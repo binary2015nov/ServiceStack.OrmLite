@@ -6,8 +6,7 @@ namespace ServiceStack.OrmLite.Sqlite
 {
     public class SqliteExpression<T> : SqlExpression<T>
     {
-        public SqliteExpression(IOrmLiteDialectProvider dialectProvider)
-            : base(dialectProvider) {}
+        public SqliteExpression(IOrmLiteDialectProvider dialectProvider) : base(dialectProvider) { }
 
         protected override object VisitColumnAccessMethod(MethodCallExpression m)
         {

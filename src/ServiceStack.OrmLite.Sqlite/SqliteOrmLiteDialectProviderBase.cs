@@ -185,8 +185,7 @@ namespace ServiceStack.OrmLite.Sqlite
             var columns = db.SqlList<Dictionary<string, object>>(sql);
             foreach (var column in columns)
             {
-                object name;
-                if (column.TryGetValue("name", out name) && name.ToString().EqualsIgnoreCase(columnName))
+                if (column.TryGetValue("name", out object name) && name.ToString().EqualsIgnoreCase(columnName))
                     return true;
             }
             return false;

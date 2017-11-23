@@ -12,8 +12,7 @@ using Order = ServiceStack.OrmLite.Tests.Order;
 
 namespace ServiceStack.OrmLite.PostgreSQL.Tests
 {
-    class NormalizeTests
-        : OrmLiteTestBase
+    class NormalizeTests : OrmLiteTestBase
     {
         public NormalizeTests() : base(Dialect.PostgreSql) { }
 

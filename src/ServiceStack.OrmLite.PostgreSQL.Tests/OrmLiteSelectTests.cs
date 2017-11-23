@@ -7,8 +7,7 @@ using ServiceStack.Text;
 namespace ServiceStack.OrmLite.PostgreSQL.Tests
 {
     [TestFixture]
-    public class OrmLiteSelectTests
-        : OrmLiteTestBase
+    public class OrmLiteSelectTests : OrmLiteTestBase
     {
         public OrmLiteSelectTests() : base(Dialect.PostgreSql) { }
 

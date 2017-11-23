@@ -3,7 +3,6 @@ using NUnit.Framework;
 using ServiceStack.Common.Tests.Models;
 using ServiceStack.OrmLite.Tests;
 
-
 namespace ServiceStack.OrmLite.FirebirdTests
 {
 
@@ -110,7 +109,6 @@ namespace ServiceStack.OrmLite.FirebirdTests
 
 	public class PrefixNamingStrategy : OrmLiteNamingStrategyBase
 	{
-
 		public string TablePrefix { get; set; }
 
 		public string ColumnPrefix { get; set; }

@@ -6,13 +6,13 @@ using ServiceStack.OrmLite.Sqlite.Converters;
 namespace ServiceStack.OrmLite.Sqlite
 {
     //Alias
-    public class SqliteWindowsOrmLiteDialectProvider : SqliteOrmLiteDialectProvider {}
+    public class SqliteWindowsOrmLiteDialectProvider : SqliteOrmLiteDialectProvider { }
 
     public class SqliteOrmLiteDialectProvider : SqliteOrmLiteDialectProviderBase
     {
         public static SqliteOrmLiteDialectProvider Instance = new SqliteOrmLiteDialectProvider();
 
-        public SqliteOrmLiteDialectProvider() : base()
+        public SqliteOrmLiteDialectProvider()
         {
             OrmLiteConfig.DeoptimizeReader = true;
             base.RegisterConverter<DateTime>(new SqliteWindowsDateTimeConverter());

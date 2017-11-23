@@ -29,7 +29,7 @@ namespace ServiceStack.OrmLite.VistaDB.Tests
         }
 
         [Test]
-        public void test_if_limit_works_with_rows_and_skip()
+        public void Test_if_limit_works_with_rows_and_skip()
         {
             using (var db = OpenDbConnection())
             {
@@ -47,7 +47,7 @@ namespace ServiceStack.OrmLite.VistaDB.Tests
         }
 
         [Test]
-        public void test_if_limit_works_with_rows()
+        public void Test_if_limit_works_with_rows()
         {
             using (var db = OpenDbConnection())
             {
@@ -65,7 +65,7 @@ namespace ServiceStack.OrmLite.VistaDB.Tests
         }
 
         [Test]
-        public void test_if_limit_works_with_rows_and_skip_and_orderby()
+        public void Test_if_limit_works_with_rows_and_skip_and_orderby()
         {
             using (var db = OpenDbConnection())
             {
@@ -83,7 +83,7 @@ namespace ServiceStack.OrmLite.VistaDB.Tests
         }
 
         [Test]
-        public void test_if_ev_still_works_without_limit_and_orderby()
+        public void Test_if_ev_still_works_without_limit_and_orderby()
         {
             using (var db = OpenDbConnection())
             {
@@ -100,7 +100,7 @@ namespace ServiceStack.OrmLite.VistaDB.Tests
         }
 
         [Test]
-        public void test_if_and_works_with_nullable_parameter()
+        public void Test_if_and_works_with_nullable_parameter()
         {
             using(var db = OpenDbConnection())
             {
@@ -126,7 +126,7 @@ namespace ServiceStack.OrmLite.VistaDB.Tests
         }
 
         [Test]
-        public void test_if_limit_works_with_rows_and_skip_if_pk_columnname_has_space()
+        public void Test_if_limit_works_with_rows_and_skip_if_pk_columnname_has_space()
         {
             using (var db = OpenDbConnection())
             {
@@ -142,7 +142,7 @@ namespace ServiceStack.OrmLite.VistaDB.Tests
         }
 
         [Test]
-        public void test_if_limit_works_with_rows_and_skip_and_orderby_if_pk_columnname_has_space()
+        public void Test_if_limit_works_with_rows_and_skip_and_orderby_if_pk_columnname_has_space()
         {
             using (var db = OpenDbConnection())
             {

@@ -150,7 +150,7 @@ namespace ServiceStack.OrmLite
                         dbCmd.Parameters.Add(p);
                     }
 
-                    var sqlIn = StringBuilderCache.ReturnAndFree(sb);
+                    var sqlIn = StringBuilderCache.Retrieve(sb);
                     sqlCopy = sqlCopy?.Replace(dialectProvider.ParamString + propName, sqlIn);
                 }
                 else

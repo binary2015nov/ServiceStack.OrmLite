@@ -20,9 +20,10 @@ namespace ServiceStack.OrmLite.PostgreSQL.Tests.Issues
                 {
                     Body = new CheckHistory
                     {
-                        List = {
-                        new ItemHistory { AddedOn = DateTime.MaxValue, Note = "Test" }
-                    }
+                        List =
+                        {
+                            new ItemHistory { AddedOn = DateTime.MaxValue, Note = "Test" }
+                        }
                     }
                 };
 

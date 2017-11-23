@@ -6,8 +6,7 @@ using ServiceStack.Common.Tests.Models;
 namespace ServiceStack.OrmLite.FirebirdTests
 {
 	[TestFixture]
-	public class OrmLiteComplexTypesTests
-		: OrmLiteTestBase
+	public class OrmLiteComplexTypesTests : OrmLiteTestBase
 	{
 
 		[Ignore("Endless recursion, need to fix")]

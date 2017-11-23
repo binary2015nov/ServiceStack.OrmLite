@@ -22,8 +22,7 @@ namespace ServiceStack.OrmLite.MySql.Tests
     }
 
     [TestFixture]
-    public class OrmLiteCreateTableTests
-        : OrmLiteTestBase
+    public class OrmLiteCreateTableTests : OrmLiteTestBase
     {
         [Test]
         public void Can_create_table_with_MaxString_and_Custom_MediumText()
