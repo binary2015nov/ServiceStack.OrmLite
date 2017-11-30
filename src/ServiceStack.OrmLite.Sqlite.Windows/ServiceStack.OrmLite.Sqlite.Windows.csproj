@@ -14,10 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="..\..\lib\net45\ServiceStack.Interfaces.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Include="..\ServiceStack.OrmLite.Sqlite\Converters\SqliteBoolConverter.cs">
       <Link>Converters\SqliteBoolConverter.cs</Link>
     </Compile>
@@ -59,5 +55,6 @@
     <ProjectReference Include="..\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj" />
     <Reference Include="..\..\lib\net45\ServiceStack.Text.dll" />
     <Reference Include="..\..\lib\net45\ServiceStack.Common.dll" />
+    <Reference Include="..\..\lib\net45\ServiceStack.Interfaces.dll" />
   </ItemGroup>
 </Project>
