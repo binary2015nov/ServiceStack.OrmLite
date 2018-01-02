@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
-    <id>ServiceStack.OrmLite.MySqlConnector</id>
-    <title>OrmLite.MySqlConnector - Fast, code-first, config-free Poco ORM</title>
+    <id>ServiceStack.OrmLite.MySqlConnector.Core</id>
+    <title>ServiceStack.OrmLite.MySqlConnector .NET Standard 2.0</title>
     <version>5.0.0</version>
     <authors>ServiceStack</authors> 
     <owners>ServiceStack</owners>
     <description>
-        MySQL Adapter for ServiceStack OrmLite using MySqlConnector ADO.NET Provider
+      .NET Standard 2.0 version of ServiceStack.OrmLite.MySqlConnector
     </description> 
     <projectUrl>https://github.com/ServiceStack/ServiceStack.OrmLite</projectUrl>
     <licenseUrl>https://servicestack.net/terms</licenseUrl>
@@ -17,13 +17,9 @@
     <language>en-US</language> 
     <copyright>ServiceStack and contributors</copyright>
     <dependencies>
-      <group targetFramework="net45">
-        <dependency id="MySqlConnector" version="[0.33.2, )" />
-        <dependency id="ServiceStack.OrmLite" version="5.0.0" />
-      </group>
       <group targetFramework=".netstandard2.0">
         <dependency id="MySqlConnector" version="[0.33.2, )" />
-        <dependency id="ServiceStack.OrmLite" version="5.0.0" />
+        <dependency id="ServiceStack.OrmLite.Core" version="5.0.0" />
       </group>
     </dependencies>
   </metadata> 

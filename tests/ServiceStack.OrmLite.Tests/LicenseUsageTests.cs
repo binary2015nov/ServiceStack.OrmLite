@@ -9,7 +9,8 @@ using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite.Tests
 {
-    [TestFixture, Ignore("License Usage")]
+    [Ignore("Run manually")]
+    [TestFixture]
     public class FreeLicenseUsageTests : LicenseUsageTests
     {
         [SetUp]
@@ -24,9 +25,9 @@ namespace ServiceStack.OrmLite.Tests
         public void TearDown()
         {
 #if NETCORE
-                        Licensing.RegisterLicense(Environment.GetEnvironmentVariable("SERVICESTACK_LICENSE"));
-#else
-            Licensing.RegisterLicense(new AppSettings().Get("servicestack:license"));
+            Licensing.RegisterLicense(Environment.GetEnvironmentVariable("SERVICESTACK_LICENSE"));
+#else            
+            Licensing.RegisterLicense(new AppSettings().GetString("servicestack:license"));
 #endif
         }
 
@@ -48,7 +49,8 @@ namespace ServiceStack.OrmLite.Tests
         }
     }
 
-    [TestFixture, Ignore("License Usage")]
+    [Ignore("Run manually")]
+    [TestFixture]
     public class RegisteredLicenseUsageTests : LicenseUsageTests
     {
         [Test]
@@ -78,7 +80,7 @@ namespace ServiceStack.OrmLite.Tests
     class T10 { public int Id { get; set; } }
     class T11 { public int Id { get; set; } }
 
-    public class LicenseUsageTests
+    public abstract class LicenseUsageTests
         : OrmLiteTestBase
     {
         protected IDbConnection db;
