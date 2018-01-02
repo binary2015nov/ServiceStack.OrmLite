@@ -151,7 +151,7 @@ namespace ServiceStack.OrmLite.Tests
             var nonInheritedProperties = GetCurrentPropertiesWithoutBase(tableDef);
             while (curType != null && !nonInheritedProperties.Contains(memberName))
             {
-                curType = curType.BaseType();
+                curType = curType.BaseType;
                 nonInheritedProperties = GetCurrentPropertiesWithoutBase(curType?.GetModelMetadata());
             }
 
