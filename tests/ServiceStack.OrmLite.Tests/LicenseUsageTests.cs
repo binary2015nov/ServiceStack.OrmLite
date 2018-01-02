@@ -27,7 +27,7 @@ namespace ServiceStack.OrmLite.Tests
 #if NETCORE
             Licensing.RegisterLicense(Environment.GetEnvironmentVariable("SERVICESTACK_LICENSE"));
 #else            
-            Licensing.RegisterLicense(new AppSettings().GetString("servicestack:license"));
+            Licensing.RegisterLicense(new AppSettings().Get("servicestack:license"));
 #endif
         }
 
