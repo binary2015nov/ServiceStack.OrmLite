@@ -93,7 +93,7 @@ namespace ServiceStack.OrmLite
                 sb.Append($"{tableSelect}, {Sql.EOT}");
             }
 
-            return StringBuilderCache.ReturnAndFree(sb);
+            return StringBuilderCache.Retrieve(sb);
         }
 
         internal static List<Tuple<T, T2>> SelectMulti<T, T2>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
